@@ -1,7 +1,7 @@
 "use client"
 import {
     Press_Start_2P as PS2P,
-} from '@next/font/google';
+} from 'next/font/google';
 import Link from 'next/link';
 
 const ps2p = PS2P({

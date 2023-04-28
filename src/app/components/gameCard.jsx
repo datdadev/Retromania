@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
     VT323,
-} from '@next/font/google';
+} from 'next/font/google';
 
 const vt323 = VT323({
     subsets: ['latin'],

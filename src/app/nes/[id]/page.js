@@ -3,7 +3,7 @@ import Player from "@/app/components/player";
 import {
     Press_Start_2P as PS2P,
     VT323,
-} from '@next/font/google';
+} from 'next/font/google';
 
 import gameList from "../../api/gameList.json"
 
