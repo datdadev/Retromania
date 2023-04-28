@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.10.6",
     "@next/font": "^13.3.1",
     "autoprefixer": "10.4.14",
+    "cors": "^2.8.5",
     "dangerously-set-html-content": "^1.0.13",
     "framer-motion": "^10.12.4",
     "next": "13.3.1",
