@@ -15,7 +15,7 @@ const GameCard = ({ className, title, image }) => {
     return (
         <Link
             href={`/nes/${title.replace(/\s+/g, '-')}`}
-            className={`${className} flex flex-col gap-1 items-center cursor-pointer hover:-translate-y-1 duration-150`}
+            className={`${className} flex flex-col items-center cursor-pointer hover:-translate-y-1 duration-150`}
         >
             <Image
                 src={image}
@@ -25,7 +25,7 @@ const GameCard = ({ className, title, image }) => {
                 sizes="100vw"
                 className="w-full h-auto border-white border-4"
             />
-            <h1 className={`${vt323.variable} font-vt323 text-center text-xl truncate ...`}>{title}</h1>
+            <h1 className={`${vt323.variable} font-vt323 w-full text-center text-lg truncate ...`}>{title}</h1>
         </Link>
     )
 }

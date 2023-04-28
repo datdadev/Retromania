@@ -31,7 +31,7 @@ const Nes = () => {
                 fontFamily={`${vt323.variable} font-vt323`}
                 textColor={"black"}
             />
-            <div className="mx-5 w-2/3 mx-auto grid grid-cols-2 md:grid-cols-3 Lg:grid-cols-6 xl:grid-cols-8 gap-6">
+            <div className="mx-5 w-2/3 mx-auto grid grid-cols-2 md:grid-cols-3 Lg:grid-cols-5 xl:grid-cols-8 gap-6">
                 {
                     gameList.map((game) => {
                         if (game.title.toLowerCase().includes(value.toLowerCase()))

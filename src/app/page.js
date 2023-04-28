@@ -43,7 +43,7 @@ export default function Home() {
         <div className='my-container'>
           <section className='relative'>
             <Image
-              className='absolute top-[calc(100vh-285px)] hover:top-[calc(100vh-300px)] duration-150'
+              className='absolute left-0 collapse Lg:visible xl:left-20 top-[calc(100vh-285px)] hover:top-[calc(100vh-300px)] duration-150'
               src={pipe}
               alt=''
               width={128}
