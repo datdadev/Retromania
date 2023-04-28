@@ -12,11 +12,16 @@
     {
         "title": "Metroid",
         "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Metroid_-_1986_-_Nintendo.jpg",
-        "gameUrl": ""
+        "gameUrl": "https://linkcloud.ddns.net/s/cRaTRWkpfPBTwer/download/metroid.nes"
     },
     {
         "title": "Kirby's Adventure",
         "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kirby-s_Adventure_-_1993_-_Nintendo.jpg",
-        "gameUrl": ""
+        "gameUrl": "https://linkcloud.ddns.net/s/WEHmENnXfBFyMAF/download/kirby.nes"
+    },
+    {
+        "title": "Kid Icarus",
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kid_Icarus_-_1987_-_Nintendo.jpg",
+        "gameUrl": "https://linkcloud.ddns.net/s/3nm5AwxtRZYZWKX/download/kid-icarus.nes"
     }
 ]
