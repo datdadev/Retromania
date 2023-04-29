@@ -12,9 +12,22 @@ import { FaSafari } from "react-icons/fa"
 import Player from './components/player';
 import NavBar from './components/navBar';
 import pipe from "../../public/assets/images/pipe.png";
+import oneUp from "../../public/assets/images/1up.png";
+import triforce from "../../public/assets/images/triforce.png";
+import nes from "../../public/assets/images/nes.png";
+import snes from "../../public/assets/images/snes.png";
+import n64 from "../../public/assets/images/n64.png";
+import nesGif from "../../public/assets/gifs/nes.gif";
+import snesGif from "../../public/assets/gifs/snes.gif";
+import n64Gif from "../../public/assets/gifs/n64.gif";
+import metroidBackground from "../../public/assets/images/metroidBackground.png";
+import samusShip from "../../public/assets/gifs/samusShip.gif";
 
-var scrollIntoView = require('scroll-into-view')
+import gameList from "../app/api/gameList.json";
+
 import { useRef } from 'react';
+import ConsoleCard from './components/consoleCard';
+import StyledTextCard from './components/styledTextCard';
 
 const ps2p = PS2P({
   subsets: ['latin'],
@@ -33,8 +46,8 @@ const vt323 = VT323({
 export default function Home() {
   const page1Ref = useRef(null);
   const page2Ref = useRef(null);
-  const scroll2Page1 = () => page1Ref.current.scrollIntoView({behavior: 'smooth'});
-  const scroll2Page2 = () => page2Ref.current.scrollIntoView({behavior: 'smooth'});   
+  const scroll2Page1 = () => page1Ref.current.scrollIntoView({ behavior: 'smooth' });
+  const scroll2Page2 = () => page2Ref.current.scrollIntoView({ behavior: 'smooth' });
   return (
     <>
       <main className="bg-black min-h-screen relative">
@@ -42,20 +55,22 @@ export default function Home() {
 
         <div className='my-container'>
           <section className='relative'>
-            <Image
-              className='absolute left-0 collapse Lg:visible xl:left-20 top-[calc(100vh-285px)] hover:top-[calc(100vh-300px)] duration-150'
-              src={pipe}
-              alt=''
-              width={128}
-              height={0}
-            />
             <div className='p-12 Lg:px-16 xl:px-36 mx-auto flex flex-col-reverse Lg:flex-row gap-5 Lg:gap-12 items-center'>
-              <div className='basis-1/2 aspect-[4/3] border-white border-4'><Player /></div>
+              <div className='relative basis-1/2 aspect-[4/3] border-white border-4'>
+                <Player />
+                <Image
+                  className='absolute collapse Lg:visible -left-14 -bottom-36 hover:-bottom-32 duration-150'
+                  src={pipe}
+                  alt=''
+                  width={128}
+                  height={0}
+                />
+              </div>
               <div className='basis-1/2'>
                 <div className='pb-1 md:pb-4 flex justify-center Lg:justify-start items-center'>
                   <div className='flex flex-col'>
                     <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-4xl`}>RETROMANIA</h1>
-                    <h2 className={`${ps2p.variable} font-ps2p text-md Lg:text-xl text-white/50`}>best retro site</h2>
+                    <h2 className={`${ps2p.variable} font-ps2p text-md Lg:text-xl text-white/50`}>Best retro site</h2>
                   </div>
                   <Image
                     className='ml-5'
@@ -68,20 +83,41 @@ export default function Home() {
                 <p className={`${vt323.variable} font-vt323 mx-0 md:mx-32 Lg:mx-0 text-lg md:text-2xl Lg:text-3xl`}>Retromania is a website that features a vast collection of classic retro games from the 80s and 90s, including games from consoles such as Nintendo, Atari, Sega, and more. It offers a nostalgic trip down memory lane for fans of the genre and is the ultimate destination for gamers seeking to relive the golden age of gaming.</p>
               </div>
             </div>
-            <IoCaretDownSharp
-            className='absolute w-full bottom-1.5 inset-x-0 scale-100 hover:scale-125 duration-300' size={28}
-            onClick={scroll2Page1}
-            />
+            <div className='absolute bottom-1.5 inset-x-0 w-full'>
+              <IoCaretDownSharp
+                className='animate-bounce mx-auto duration-300' size={28}
+                onClick={scroll2Page1}
+              /></div>
           </section>
 
           <section ref={page1Ref} className='relative py-16'>
             <div className='w-full flex flex-col justify-between'>
-              <div className='flex'>
-                <div className='basis-1/2'>
+              <div className='h-full flex'>
+                <div className='basis-1/2 flex flex-col'>
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Available</h1>
+                  <div className='h-full flex flex-col gap-8 justify-center items-center'>
+                    <div className='flex gap-8 items-center'>
+                      <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={gameList.length} />
+                      <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={gameList.length} />
+                    </div>
+                    <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={gameList.length} />
+                  </div>
                 </div>
-                <div className='basis-1/2'>
+                <div className='basis-1/2 flex flex-col'>
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Features</h1>
+                  <div className='h-full flex flex-col gap-8 justify-center items-center'>
+                    <div className='relative'>
+                      <StyledTextCard text={"Wide game selection"} fromColor={"red-500"} toColor={"orange-500"} />
+                      <Image className='absolute -top-12 -left-28 -rotate-[30deg] opacity-25' src={oneUp} width={64} height={64} />
+                    </div>
+                    <StyledTextCard text={"User-friendly interface"} fromColor={"green-500"} toColor={"yellow-500"} />
+                    <StyledTextCard text={"User-friendly interface"} fromColor={"yellow-500"} toColor={"orange-500"} />
+                    <StyledTextCard text={"Multiplayer options Available"} fromColor={"blue-500"} toColor={"teal-500"} />
+                    <div className='relative'>
+                    <StyledTextCard text={"Accessible on multiple devices"} fromColor={"teal-500"} toColor={"emerald-500"} />
+                    <Image className='absolute -bottom-12 -right-28 rotate-[30deg] opacity-25' src={triforce} width={64} height={64} />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className='flex flex-col mx-auto'>
@@ -95,16 +131,19 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <IoCaretDownSharp
-            className='absolute w-full bottom-1.5 inset-x-0 scale-100 hover:scale-125 duration-300' size={28}
-            onClick={scroll2Page2}
-            />
+            <div className='absolute bottom-1.5 inset-x-0 w-full'>
+              <IoCaretDownSharp
+                className='animate-bounce mx-auto duration-300' size={28}
+                onClick={scroll2Page2}
+              /></div>
           </section>
 
-          <section ref={page2Ref}>
-            <div className='mx-auto flex flex-col justify-center items-center gap-5'>
+          <section className='relative' ref={page2Ref}>
+            <Image className='absolute z-0' src={metroidBackground} fill />
+            <div className='z-10 mx-auto flex flex-col justify-center items-center gap-5'>
               <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-4xl text-center`}>Thanks for playing!</h1>
               <Link href={"https://www.youtube.com/watch?v=xvFZjo5PgG0"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>About</Link>
+              <Image className='mt-5' src={samusShip}/>
             </div>
           </section>
         </div>

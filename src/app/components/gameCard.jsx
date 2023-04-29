@@ -13,7 +13,7 @@ const vt323 = VT323({
 
 const GameCard = ({ className, title, image }) => {
     return (
-        <Link
+        <a
             href={`/nes/${title.replace(/\s+/g, '-')}`}
             className={`${className} flex flex-col items-center cursor-pointer hover:-translate-y-1 duration-150`}
         >
@@ -26,7 +26,7 @@ const GameCard = ({ className, title, image }) => {
                 className="w-full h-auto border-white border-4"
             />
             <h1 className={`${vt323.variable} font-vt323 w-full text-center text-lg truncate ...`}>{title}</h1>
-        </Link>
+        </a>
     )
 }
 
