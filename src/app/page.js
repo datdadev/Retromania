@@ -107,14 +107,14 @@ export default function Home() {
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Features</h1>
                   <div className='h-full flex flex-col gap-8 justify-center items-center'>
                     <div className='relative'>
-                      <StyledTextCard text={"Wide game selection"} fromColor={"red-500"} toColor={"orange-500"} />
+                      <StyledTextCard text={"Wide game selection"} gradientColor={"from-red-500 to-orange-500"} />
                       <Image className='absolute -top-12 -left-28 -rotate-[30deg] opacity-25' src={oneUp} width={64} height={64} />
                     </div>
-                    <StyledTextCard text={"User-friendly interface"} fromColor={"green-500"} toColor={"yellow-500"} />
-                    <StyledTextCard text={"User-friendly interface"} fromColor={"yellow-500"} toColor={"orange-500"} />
-                    <StyledTextCard text={"Multiplayer options Available"} fromColor={"blue-500"} toColor={"teal-500"} />
+                    <StyledTextCard text={"User-friendly interface"} gradientColor={"from-green-500 to-yellow-500"} />
+                    <StyledTextCard text={"User-friendly interface"} gradientColor={"from-yellow-500 to-orange-500"} />
+                    <StyledTextCard text={"Multiplayer options Available"} gradientColor={"from-blue-500 to-teal-500"}  />
                     <div className='relative'>
-                    <StyledTextCard text={"Accessible on multiple devices"} fromColor={"teal-500"} toColor={"emerald-500"} />
+                    <StyledTextCard text={"Accessible on multiple devices"} gradientColor={"from-teal-500 to-emerald-500"} />
                     <Image className='absolute -bottom-12 -right-28 rotate-[30deg] opacity-25' src={triforce} width={64} height={64} />
                     </div>
                   </div>
