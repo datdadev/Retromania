@@ -13,7 +13,9 @@ const ps2p = PS2P({
 
 const NavBar = ({ currentPage = "" }) => {
     return <div className='px-5 py-5 h-[68px] bg-white/10 flex items-center justify-between border-b-2'>
-        <h1 className={`${ps2p.variable} font-ps2p text-xl`}>RETROMANIA</h1>
+        <a href='/' className={`${ps2p.variable} font-ps2p text-xl hover:font-semibold duration-150`}>
+            RETROMANIA
+        </a>
         <div className='flex gap-5 items-center'>
             {
                 ["", "nes", "snes", "n64"].map((route) => {
