@@ -28,6 +28,7 @@ import gameList from "../app/api/gameList.json";
 import { useRef } from 'react';
 import ConsoleCard from './components/consoleCard';
 import StyledTextCard from './components/styledTextCard';
+import Script from 'next/script';
 
 const ps2p = PS2P({
   subsets: ['latin'],
@@ -59,7 +60,8 @@ export default function Home() {
               <div className='relative basis-1/2 aspect-[4/3] border-white border-4'>
                 <Player />
                 <Image
-                  className='absolute collapse Lg:visible -left-14 -bottom-36 hover:-bottom-32 duration-150'
+                  data-speed="-2"
+                  className='layer absolute collapse Lg:visible -left-20 -bottom-28 hover:-bottom-32 duration-150'
                   src={pipe}
                   alt=''
                   width={128}
@@ -112,10 +114,10 @@ export default function Home() {
                     </div>
                     <StyledTextCard text={"User-friendly interface"} gradientColor={"from-green-500 to-yellow-500"} />
                     <StyledTextCard text={"User-friendly interface"} gradientColor={"from-yellow-500 to-orange-500"} />
-                    <StyledTextCard text={"Multiplayer options Available"} gradientColor={"from-blue-500 to-teal-500"}  />
+                    <StyledTextCard text={"Multiplayer options Available"} gradientColor={"from-blue-500 to-teal-500"} />
                     <div className='relative'>
-                    <StyledTextCard text={"Accessible on multiple devices"} gradientColor={"from-teal-500 to-emerald-500"} />
-                    <Image className='absolute -bottom-12 -right-28 rotate-[30deg] opacity-25' src={triforce} width={64} height={64} />
+                      <StyledTextCard text={"Accessible on multiple devices"} gradientColor={"from-teal-500 to-emerald-500"} />
+                      <Image className='absolute -bottom-12 -right-28 rotate-[30deg] opacity-25' src={triforce} width={64} height={64} />
                     </div>
                   </div>
                 </div>
@@ -143,10 +145,24 @@ export default function Home() {
             <div className='z-10 mx-auto flex flex-col justify-center items-center gap-5'>
               <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-4xl text-center`}>Thanks for playing!</h1>
               <Link href={"https://www.youtube.com/watch?v=xvFZjo5PgG0"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>About</Link>
-              <Image className='mt-5' src={samusShip}/>
+              <Image data-speed="2" className='layer mt-5' src={samusShip} />
             </div>
           </section>
         </div>
+
+        <Script type='text/javascript'>
+          {`document.addEventListener("mousemove", parallax);
+          function parallax(e) {
+            this.querySelectorAll('.layer').forEach(layer => {
+              const speed = layer.getAttribute('data-speed')
+
+              const x = (window.innerWidth - e.pageX * speed)/100
+              const y = (window.innerWidth - e.pageY * speed)/100
+
+              layer.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px)'
+            })
+          }`}
+        </Script>
       </main>
     </>
   )
