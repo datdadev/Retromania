@@ -1,27 +1,22 @@
 [
     {
         "title": "Super Mario Bros. 2",
-        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Super_Mario_Bros._2_-_1986_-_Nintendo.jpg",
-        "gameUrl": "https://linkcloud.ddns.net/s/LAAHCzDBQAqqcsB/download/mario2.nes"
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Super_Mario_Bros._2_-_1986_-_Nintendo.jpg"
     },
     {
         "title": "Legend of Zelda",
-        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Legend_of_Zelda_-_1987_-_Nintendo.jpg",
-        "gameUrl": "https://linkcloud.ddns.net/s/J2ApCpRRdNHabex/download/zelda.nes"
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Legend_of_Zelda_-_1987_-_Nintendo.jpg"
     },
     {
         "title": "Metroid",
-        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Metroid_-_1986_-_Nintendo.jpg",
-        "gameUrl": "https://linkcloud.ddns.net/s/cRaTRWkpfPBTwer/download/metroid.nes"
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Metroid_-_1986_-_Nintendo.jpg"
     },
     {
         "title": "Kirby's Adventure",
-        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kirby-s_Adventure_-_1993_-_Nintendo.jpg",
-        "gameUrl": "https://linkcloud.ddns.net/s/WEHmENnXfBFyMAF/download/kirby.nes"
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kirby-s_Adventure_-_1993_-_Nintendo.jpg"
     },
     {
         "title": "Kid Icarus",
-        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kid_Icarus_-_1987_-_Nintendo.jpg",
-        "gameUrl": "https://linkcloud.ddns.net/s/3nm5AwxtRZYZWKX/download/kid-icarus.nes"
+        "imageUrl": "https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kid_Icarus_-_1987_-_Nintendo.jpg"
     }
 ]

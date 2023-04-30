@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react";
 import NavBar from "../components/navBar";
-import { Input } from "@chakra-ui/react";
 import {
     VT323,
 } from 'next/font/google';
@@ -22,15 +21,12 @@ const Nes = () => {
     return (
         <>
             <NavBar currentPage="nes" />
-            <Input
-                className="my-8 p-2 w-96 h-8 mx-auto flex"
-                value={value}
-                onChange={handleChange}
-                placeholder='Input your game here'
-                size='sm'
-                fontFamily={`${vt323.variable} font-vt323`}
-                textColor={"black"}
-            />
+            <div className={`${vt323.variable} font-vt323 py-7 w-96 mx-auto flex flex-col justify-center text-2xl`}>
+                <form className="flex gap-3" action="/send-data-here" method="post">
+                    <label for="username">Search:</label>
+                    <input onChange={handleChange} className="px-1 w-full text-black" type="text" id="first" name="first" />
+                </form>
+            </div>
             <div className="mx-5 w-2/3 mx-auto grid grid-cols-2 md:grid-cols-3 Lg:grid-cols-5 xl:grid-cols-8 gap-6">
                 {
                     gameList.map((game) => {
