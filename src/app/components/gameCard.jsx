@@ -11,21 +11,21 @@ const vt323 = VT323({
     variable: '--font-vt323',
 });
 
-const GameCard = ({ className, title, image }) => {
+const GameCard = ({ className, type, name, boxImage }) => {
     return (
         <a
-            href={`/nes/${title.replace(/\s+/g, '-')}`}
+            href={`/${type}/${name}`}
             className={`${className} flex flex-col items-center cursor-pointer hover:-translate-y-1 duration-150`}
         >
             <Image
-                src={image}
+                // src={"https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kid_Icarus_-_1987_-_Nintendo.jpg"}
                 alt=""
                 width="0"
                 height="0"
                 sizes="100vw"
-                className="w-full h-auto border-white border-4"
+                className="w-full h-auto aspect-[197/270] border-white border-4"
             />
-            <h1 className={`${vt323.variable} font-vt323 w-full text-center text-lg truncate ...`}>{title}</h1>
+            <h1 className={`${vt323.variable} font-vt323 w-full text-center text-lg truncate ...`}>{name.replaceAll('-', ' ')}</h1>
         </a>
     )
 }

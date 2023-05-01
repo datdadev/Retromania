@@ -5,8 +5,6 @@ import {
     VT323,
 } from 'next/font/google';
 
-import gameList from "../../api/gameList.json"
-
 const ps2p = PS2P({
     subsets: ['latin'],
     weight: '400',
@@ -26,12 +24,12 @@ const NesPlayer = ({ params } = {
 }) => {
     return (
         <>
-            <NavBar currentPage="nes" />
+            <NavBar currentPage="snes" />
             <h1 className={`${ps2p.variable} font-ps2p py-5 text-center text-2xl`}>{params.id.replaceAll('-', ' ')}</h1>
             <div className='aspect-[4/3] h-[calc(100vh-68*3px)] mx-auto border-white border-4'>
                 <Player
-                    type="nes"
-                    gameUrl={`https://zlink.ddns.net/roms/nes/${params.id.replace("'", "\\'")}.nes`}
+                    type="snes"
+                    gameUrl={`https://zlink.ddns.net/roms/snes/${params.id.replace("'", "\\'")}.sfc`}
                 />
             </div>
         </>

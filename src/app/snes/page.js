@@ -21,12 +21,12 @@ const Nes = () => {
     const [gameList, setGameList] = useState([]);
     useEffect(() => {
         async function getGames() {
-            let response = await fetch(`https://zlink.ddns.net/roms/nes`)
+            let response = await fetch(`https://zlink.ddns.net/roms/snes`)
             const backendHtmlString = await response.text()
             if (!backendHtmlString.includes('<a')) {
                 return []; // or any other default value you want to use
             }
-            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\'-]+(?=.nes<)/g)];
+            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\'-]+(?=.sfc<)/g)];
             return array;
         }
 
@@ -35,7 +35,7 @@ const Nes = () => {
 
     return (
         <>
-            <NavBar currentPage="nes" />
+            <NavBar currentPage="snes" />
             <div className={`${vt323.variable} font-vt323 py-7 w-96 mx-auto flex flex-col justify-center text-2xl`}>
                 <form className="flex gap-3" action="/send-data-here" method="post">
                     <label for="username">Search:</label>
@@ -47,7 +47,7 @@ const Nes = () => {
                     gameList?.map((game) => {
                         if (game.toLowerCase().includes(value.toLowerCase()))
                             return <GameCard
-                                type="nes"
+                                type="snes"
                                 name={game}
                                 // boxImage={game.imageUrl}
                                 // gamUrl={game.gameUrl}

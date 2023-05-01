@@ -1,7 +1,7 @@
 'use client'
 import InnerHTML from 'dangerously-set-html-content'
 
-const Player = ({ gameUrl = 'https://zlink.ddns.net/roms/Super-Mario-Bros..nes' }) => {
+const Player = ({ type = 'nes', gameUrl = 'https://zlink.ddns.net/roms/nes/Super-Mario-Bros..nes' }) => {
     const html = `
         <div class="aspect-[4/3]">
             <div id="game"></div>
@@ -10,7 +10,7 @@ const Player = ({ gameUrl = 'https://zlink.ddns.net/roms/Super-Mario-Bros..nes' 
             EJS_player = '#game';
             EJS_biosUrl = ''; // Url to Famicom Disk System bios
             EJS_gameUrl = '${gameUrl}'; // Url to Game rom
-            EJS_core = 'nes'; // Optional core: mesen, nestopia
+            EJS_core = '${type}'; // Optional core: mesen, nestopia
             EJS_lightgun = false; // Lightgun
         </script>
         <script src="https://www.emulatorjs.com/loader.js"></script>

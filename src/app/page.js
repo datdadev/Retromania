@@ -1,5 +1,7 @@
 'use client'
 import Link from 'next/link';
+import { decode } from 'html-entities';
+import Script from 'next/script';
 import Image from 'next/image'
 import {
   Press_Start_2P as PS2P,
@@ -23,12 +25,9 @@ import n64Gif from "../../public/assets/gifs/n64.gif";
 import metroidBackground from "../../public/assets/images/metroidBackground.png";
 import samusShip from "../../public/assets/gifs/samusShip.gif";
 
-import gameList from "../app/api/gameList.json";
-
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ConsoleCard from './components/consoleCard';
 import StyledTextCard from './components/styledTextCard';
-import Script from 'next/script';
 
 const ps2p = PS2P({
   subsets: ['latin'],
@@ -49,6 +48,38 @@ export default function Home() {
   const page2Ref = useRef(null);
   const scroll2Page1 = () => page1Ref.current.scrollIntoView({ behavior: 'smooth' });
   const scroll2Page2 = () => page2Ref.current.scrollIntoView({ behavior: 'smooth' });
+
+  const [numberOfGames, setNumberOfGames] = useState({
+    "nes": "...",
+    "snes": "...",
+    "n64": "..."
+  });
+  useEffect(() => {
+    async function getGames(url) {
+      let response = await fetch(url)
+      const backendHtmlString = await response.text()
+      if (!backendHtmlString.includes('<a')) {
+        return 0; // or any other default value you want to use
+      }
+      const array = [...decode(backendHtmlString).match(/<a/g)];
+      return array.length;
+    }
+    const urls = [
+      "https://zlink.ddns.net/roms/nes",
+      "https://zlink.ddns.net/roms/snes",
+      "https://zlink.ddns.net/roms/n64"
+    ];
+    Promise.all(urls.map(url => getGames(url)))
+      .then(counts => {
+        const updatedGameList = {
+          "nes": counts[0],
+          "snes": counts[1],
+          "n64": counts[2]
+        };
+        setNumberOfGames(updatedGameList);
+      });
+  }, []);
+
   return (
     <>
       <main className="bg-black min-h-screen relative">
@@ -99,10 +130,10 @@ export default function Home() {
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Available</h1>
                   <div className='h-full flex flex-col gap-8 justify-center items-center'>
                     <div className='flex gap-8 items-center'>
-                      <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={gameList.length} />
-                      <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={gameList.length} />
+                      <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={numberOfGames["nes"]} />
+                      <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={numberOfGames["snes"]} />
                     </div>
-                    <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={gameList.length} />
+                    <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={numberOfGames["n64"]} />
                   </div>
                 </div>
                 <div className='basis-1/2 flex flex-col'>
