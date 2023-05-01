@@ -23,10 +23,11 @@ const Nes = () => {
         async function getGames() {
             let response = await fetch(`https://zlink.ddns.net/roms/snes`)
             const backendHtmlString = await response.text()
+            console.log(backendHtmlString)
             if (!backendHtmlString.includes('<a')) {
                 return []; // or any other default value you want to use
             }
-            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\'-]+(?=.sfc<)/g)];
+            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\':-]+(?=.sfc<)/g)];
             return array;
         }
 

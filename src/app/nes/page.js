@@ -26,7 +26,7 @@ const Nes = () => {
             if (!backendHtmlString.includes('<a')) {
                 return []; // or any other default value you want to use
             }
-            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\'-]+(?=.nes<)/g)];
+            const array = [...decode(backendHtmlString).match(/(?<=>)[\w.\':-]+(?=.nes<)/g)];
             return array;
         }
 
