@@ -32,8 +32,8 @@ const Nes = () => {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Client-ID': process.env.CLIENT_ID,
-                    'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+                    'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
                 },
                 body: `fields name, cover.url;
 where name = "${(gameNames.map(str => str.replaceAll(/-/g, " "))).join('","')}" & cover.url != null;`
