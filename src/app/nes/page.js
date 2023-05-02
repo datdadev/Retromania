@@ -33,7 +33,7 @@ const Nes = () => {
                 headers: {
                     'Accept': 'application/json',
                     'Client-ID': process.env.CLIENT_ID,
-                    'Authorization': `Bearer ${[process.env.ACCESS_TOKEN]}`,
+                    'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
                 },
                 body: `fields name, cover.url;
 where name = "${(gameNames.map(str => str.replaceAll(/-/g, " "))).join('","')}" & cover.url != null;`
