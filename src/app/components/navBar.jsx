@@ -1,5 +1,3 @@
-"use client"
-import Link from 'next/link';
 import {
     Press_Start_2P as PS2P,
 } from 'next/font/google';

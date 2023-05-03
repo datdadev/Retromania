@@ -20,8 +20,7 @@ const nextConfig = {
   images: {
     domains: [
       'art.pixilart.com',
-      'www.gamesdatabase.org',
-      'pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com'
+      'images.igdb.com'
     ],
   },
 }

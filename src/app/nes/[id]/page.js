@@ -5,8 +5,6 @@ import {
     VT323,
 } from 'next/font/google';
 
-import gameList from "../../api/gameList.json"
-
 const ps2p = PS2P({
     subsets: ['latin'],
     weight: '400',

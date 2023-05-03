@@ -11,14 +11,14 @@ const vt323 = VT323({
     variable: '--font-vt323',
 });
 
-const GameCard = ({ className, type, name, boxImage }) => {
+const GameCard = ({ className, type, name, cover }) => {
     return (
         <a
             href={`/${type}/${name}`}
             className={`${className} flex flex-col items-center cursor-pointer hover:-translate-y-1 duration-150`}
         >
             <Image
-                // src={"https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_NES/Box/big/Kid_Icarus_-_1987_-_Nintendo.jpg"}
+                src={`https:${cover.replace("t_thumb", "t_cover_big")}`}
                 alt=""
                 width="0"
                 height="0"
