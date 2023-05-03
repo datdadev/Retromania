@@ -49,7 +49,6 @@ const SNES = () => {
                 where name = "${(gameNames.map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type] + '" | name = "')}" & platforms.name = "${platforms[type]}";`
             });
             let gamesDetail = await responseFromDatabase.json();
-            console.log(gamesDetail)
             return gamesDetail
         }
         getGames().then((array) => setGameList(array))
@@ -70,7 +69,7 @@ const SNES = () => {
                         if (game.name.toLowerCase().includes(value.toLowerCase()))
                             return <GameCard
                                 type={type}
-                                name={game.name}
+                                name={game.name.replaceAll(" ", "-")}
                                 cover={game.cover.url}
                             />
                     })
