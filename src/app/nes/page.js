@@ -47,6 +47,15 @@ const NES = () => {
                 body: `fields name, cover.url;
                 where name = "${(gameNames.map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type] + '" | name = "')}" & platforms.name = "${platforms[type]}";`
             });
+            if (responseFromDatabase.status === 401) {
+                let gamesDetail = []
+                gameNames.map((name) => {
+                    gamesDetail.push({
+                        name: name
+                    })
+                })
+                return gamesDetail
+            }
             let gamesDetail = await responseFromDatabase.json();
             return gamesDetail
         }
@@ -69,7 +78,7 @@ const NES = () => {
                             return <GameCard
                                 type={type}
                                 name={game.name.replaceAll(" ", "-")}
-                                cover={game.cover.url}
+                                cover={game?.cover?.url}
                             />
                     })
                 }

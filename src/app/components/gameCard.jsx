@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import pipe from "../../../public/assets/images/unfetchableImage.png";
 import {
     VT323,
 } from 'next/font/google';
@@ -18,7 +19,7 @@ const GameCard = ({ className, type, name, cover }) => {
             className={`${className} flex flex-col items-center cursor-pointer hover:-translate-y-1 duration-150`}
         >
             <Image
-                src={`https:${cover.replace("t_thumb", "t_cover_big")}`}
+                src={cover != null ? `https:${cover.replace("t_thumb", "t_cover_big")}` : pipe}
                 alt=""
                 width="0"
                 height="0"
