@@ -27,7 +27,7 @@ const NesPlayer = ({ params } = {
     return (
         <>
             <NavBar currentPage={type} />
-            <h1 className={`${ps2p.variable} font-ps2p py-5 text-center text-2xl`}>{params.id.replaceAll('-', ' ')}</h1>
+            <h1 className={`${ps2p.variable} font-ps2p py-5 text-center text-2xl`}>{params.id.replaceAll('-', ' ').replaceAll('%3A',':')}</h1>
             <div className='aspect-[4/3] h-[calc(100vh-68*3px)] mx-auto border-white border-4'>
                 <Player
                     type={type}
