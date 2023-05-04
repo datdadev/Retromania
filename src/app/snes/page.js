@@ -1,6 +1,6 @@
 "use client"
 const type = "snes";
-const fileType = "sfc";
+const fileType = "sfc"
 
 import { useEffect, useState } from "react";
 import { decode } from 'html-entities';
@@ -34,36 +34,43 @@ const NES = () => {
                 return []; // or any other default value you want to use
             }
             const decodedHtmlString = decode(backendHtmlString);
-            const regex = new RegExp(`(?<=>)[\\w.':-]+(?=.${fileType}<)`, 'g');
+            const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
             let gameNames = [];
             if (typeof decodedHtmlString === 'string') {
                 gameNames = [...decodedHtmlString.match(regex)];
             }
 
-            let responseFromDatabase = await fetch(`https://zlink.ddns.net/cors/api.igdb.com/v4/games`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
-                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
-                },
-                body: `fields name, cover.url;
-                where name = "${(gameNames.map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type] + '" | name = "')}" & platforms.name = "${platforms[type]}";`
-            });
-            if (responseFromDatabase.status === 401) {
-                let gamesDetail = []
-                gameNames.map((name) => {
-                    gamesDetail.push({
-                        name: name
-                    })
-                })
-                return gamesDetail
+            // Split gameNames array into smaller chunks
+            const chunkSize = 10;
+            const chunks = [];
+            for (let i = 0; i < gameNames.length; i += chunkSize) {
+                chunks.push(gameNames.slice(i, i + chunkSize));
             }
-            let gamesDetail = await responseFromDatabase.json();
-            return gamesDetail
+
+            let gamesDetail = [];
+            for (let i = 0; i < chunks.length; i++) {
+                const responseFromDatabase = await fetch(
+                    `https://zlink.ddns.net/cors/api.igdb.com/v4/games`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
+                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+                    },
+                    body: `fields name, cover.url;
+                  where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type] + '" | name = "')}" & platforms.name = "${platforms[type]}";`
+                }
+                );
+
+                const responseJson = await responseFromDatabase.json();
+                gamesDetail = [...gamesDetail, ...responseJson];
+            }
+            return gamesDetail;
         }
-        getGames().then((array) => setGameList(array))
+
+        getGames().then((array) => setGameList(array));
     }, []);
+
 
     useEffect(() => {
         setMatchedGames(
