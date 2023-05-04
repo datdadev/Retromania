@@ -23,6 +23,8 @@ const NES = () => {
     const handleChange = (event) => setValue(event.target.value)
 
     const [gameList, setGameList] = useState([]);
+    const [matchedGames, setMatchedGames] = useState([]);
+
     useEffect(() => {
         async function getGames() {
             let responseFromHost = await fetch(`https://zlink.ddns.net/roms/${type}`)
@@ -62,14 +64,23 @@ const NES = () => {
         getGames().then((array) => setGameList(array))
     }, []);
 
+    useEffect(() => {
+        setMatchedGames(
+            gameList.filter((game) =>
+                game.name.toLowerCase().includes(value.toLowerCase())
+            )
+        );
+    }, [gameList, value]);
+
     return (
         <>
             <NavBar currentPage={type} />
-            <div className={`${vt323.variable} font-vt323 py-7 w-96 mx-auto flex flex-col justify-center text-2xl`}>
+            <div className={`${vt323.variable} font-vt323 text-2xl py-7 w-96 mx-auto flex justify-center gap-4`}>
                 <form className="flex gap-3" action="/send-data-here" method="post">
                     <label for="username">Search:</label>
                     <input onChange={handleChange} className="px-1 w-full text-black" type="text" id="first" name="first" />
                 </form>
+                <span>{matchedGames.length}/{gameList.length}</span>
             </div>
             <div className="mx-5 w-2/3 mx-auto grid grid-cols-2 md:grid-cols-3 Lg:grid-cols-5 xl:grid-cols-8 gap-6">
                 {
