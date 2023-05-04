@@ -14,7 +14,7 @@ variable: '--font-vt323',
 const ConsoleCard = ({ image, gif, name, numberOfGames }) => {
     return (
         <a href={`/${name.toLowerCase()}`} className='px-4 py-2 group cursor-pointer border-4 border-black hover:border-white flex flex-col items-center'>
-            <div className='relative w-[110px] h-[85px] xl:w-[220px] xl:h-[170px]'>
+            <div className='relative w-[130px] h-[100px] xl:w-[220px] xl:h-[170px]'>
                 <Image className='absolute inset-y-0 opacity-100 group-hover:opacity-0 duration-150' src={image} />
                 <Image className='absolute opacity-0 group-hover:opacity-100 duration-150' src={gif} />
             </div>

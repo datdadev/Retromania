@@ -17,7 +17,7 @@ const NavBar = ({ currentPage = "" }) => {
         </a>
         <div className='flex gap-5 items-center'>
             {
-                ["", "nes", "snes", "n64"].map((route) => {
+                ["", "nes", "snes", "gba", "n64"].map((route) => {
                     return <a href={`/${route}`} className={`${ps2p.variable} font-ps2p ${currentPage === route ? "text-white" : "text-white/50 hover:text-white duration-150"}`}>{route ? route.toUpperCase() : "HOME"}</a>
                 })
             }

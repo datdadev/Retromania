@@ -19,9 +19,11 @@ import triforce from "../../public/assets/images/triforce.png";
 import nes from "../../public/assets/images/nes.png";
 import snes from "../../public/assets/images/snes.png";
 import n64 from "../../public/assets/images/n64.png";
+import gba from "../../public/assets/images/gba.png";
 import nesGif from "../../public/assets/gifs/nes.gif";
 import snesGif from "../../public/assets/gifs/snes.gif";
 import n64Gif from "../../public/assets/gifs/n64.gif";
+import gbaGif from "../../public/assets/gifs/gba.gif";
 import metroidBackground from "../../public/assets/images/metroidBackground.png";
 import samusShip from "../../public/assets/gifs/samusShip.gif";
 
@@ -52,7 +54,8 @@ export default function Home() {
   const [numberOfGames, setNumberOfGames] = useState({
     "nes": "...",
     "snes": "...",
-    "n64": "..."
+    "n64": "...",
+    "gba": "..."
   });
   useEffect(() => {
     async function getGames(url) {
@@ -67,14 +70,16 @@ export default function Home() {
     const urls = [
       "https://zlink.ddns.net/roms/nes",
       "https://zlink.ddns.net/roms/snes",
-      "https://zlink.ddns.net/roms/n64"
+      "https://zlink.ddns.net/roms/n64",
+      "https://zlink.ddns.net/roms/gba"
     ];
     Promise.all(urls.map(url => getGames(url)))
       .then(counts => {
         const updatedGameList = {
           "nes": counts[0],
           "snes": counts[1],
-          "n64": counts[2]
+          "n64": counts[2],
+          "gba": counts[3]
         };
         setNumberOfGames(updatedGameList);
       });
@@ -133,7 +138,10 @@ export default function Home() {
                       <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={numberOfGames["nes"]} />
                       <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={numberOfGames["snes"]} />
                     </div>
-                    <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={numberOfGames["n64"]} />
+                    <div className='flex gap-8 items-center'>
+                      <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={numberOfGames["n64"]} />
+                      <ConsoleCard image={gba} gif={gbaGif} name={"GBA"} numberOfGames={numberOfGames["gba"]} />
+                    </div>
                   </div>
                 </div>
                 <div className='basis-1/2 flex flex-col'>

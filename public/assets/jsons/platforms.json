@@ -1,5 +1,6 @@
 {
     "nes": "Nintendo Entertainment System",
     "snes": "Super Nintendo Entertainment System",
-    "n64": "Nintendo 64"
+    "n64": "Nintendo 64",
+    "gba": "Game Boy Advance"
 }

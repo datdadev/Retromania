@@ -1,4 +1,4 @@
-const type = "nes";
+const type = "gba";
 
 import NavBar from "@/app/components/navBar"
 import Player from "@/app/components/player";
