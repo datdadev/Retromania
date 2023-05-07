@@ -95,14 +95,16 @@ export default function Home() {
             <div className='p-12 Lg:px-16 xl:px-36 mx-auto flex flex-col-reverse Lg:flex-row gap-5 Lg:gap-12 items-center'>
               <div className='relative basis-1/2 aspect-[4/3] border-white border-4'>
                 <Player />
-                <Image
-                  data-speed="-2"
-                  className='layer absolute collapse Lg:visible -left-20 -bottom-28 hover:-bottom-32 duration-150'
-                  src={pipe}
-                  alt=''
-                  width={128}
-                  height={0}
-                />
+                <Link href={"https://www.youtube.com/watch?v=xvFZjo5PgG0"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>
+                  <Image
+                    data-speed="-2"
+                    className='layer absolute collapse Lg:visible -left-20 -bottom-28 hover:-bottom-32 duration-150'
+                    src={pipe}
+                    alt=''
+                    width={128}
+                    height={0}
+                  />
+                </Link>
               </div>
               <div className='basis-1/2'>
                 <div className='pb-1 md:pb-4 flex justify-center Lg:justify-start items-center'>
@@ -183,7 +185,11 @@ export default function Home() {
             <Image className='absolute z-0' src={metroidBackground} fill />
             <div className='z-10 mx-auto flex flex-col justify-center items-center gap-5'>
               <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-4xl text-center`}>Thanks for playing!</h1>
-              <Link href={"https://www.youtube.com/watch?v=xvFZjo5PgG0"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>About</Link>
+              <div className='flex gap-5'>
+                <Link href={"https://datdadev.ddns.net"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>Contact</Link>
+                <div className='bg-white w-1 h-6' />
+                <Link href={"https://patreon.com/DatDaDev"} target='_blank' className={`${ps2p.variable} font-ps2p underline`}>Support</Link>
+              </div>
               <Image data-speed="2" className='layer mt-5' src={samusShip} />
             </div>
           </section>
