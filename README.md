@@ -3,7 +3,7 @@
 ## About
 Retromania is a best, beautiful, retro-styled retro site that serves as an emulator for numerous games from various consoles throughout the decades. It provides a nostalgic gaming experience, allowing users to relive the golden age of gaming. With Retromania, you can dive into the world of retro gaming and enjoy a vast collection of classic games from various consoles, all in one immersive platform. The repository is built using [ReactJS](https://react.dev/blog/2023/03/16/introducing-react-dev) with the [NextJS](https://nextjs.org) framework, offering a seamless and interactive user interface.
 
-<img src="public/assets/images/preview.PNG" width="375">
+<img src="public/assets/images/preview.PNG" width="512">
 
 ## Disclaimer
 Please note that "Retromania" is a trademarked name and this repository is provided for personal and educational purposes only. It is not intended for commercial use or public deployment. We kindly ask users not to publish or distribute this repository under the name "Retromania" without proper authorization.
