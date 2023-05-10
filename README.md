@@ -1,7 +1,7 @@
-# [Retromania](https://retromania.vercel.app)
+# Retromania
 
 ## About
-Retromania is a best, beautiful, retro-styled retro site that serves as an emulator for numerous games from various consoles throughout the decades. It provides a nostalgic gaming experience, allowing users to relive the golden age of gaming. With Retromania, you can dive into the world of retro gaming and enjoy a vast collection of classic games from various consoles, all in one immersive platform. The repository is built using [ReactJS](https://react.dev/blog/2023/03/16/introducing-react-dev) with the [NextJS](https://nextjs.org) framework, offering a seamless and interactive user interface.
+[Retromania](https://retromania.vercel.app) is a best, beautiful, retro-styled retro site that serves as an emulator for numerous games from various consoles throughout the decades. It provides a nostalgic gaming experience, allowing users to relive the golden age of gaming. With Retromania, you can dive into the world of retro gaming and enjoy a vast collection of classic games from various consoles, all in one immersive platform. The repository is built using [ReactJS](https://react.dev/blog/2023/03/16/introducing-react-dev) with the [NextJS](https://nextjs.org) framework, offering a seamless and interactive user interface.
 
 <img src="public/assets/images/preview.PNG" width="512">
 
