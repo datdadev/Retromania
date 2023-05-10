@@ -1,7 +1,7 @@
 # Retromania
 
 ## About
-Retromania is a best, beautiful, retro-styled retro site that serves as an emulator for numerous games from various consoles throughout the decades. It provides a nostalgic gaming experience, allowing users to relive the golden age of gaming. With Retromania, you can dive into the world of retro gaming and enjoy a vast collection of classic games from various consoles, all in one immersive platform. The repository is built using ReactJS with the NextJS framework, offering a seamless and interactive user interface.
+Retromania is a best, beautiful, retro-styled retro site that serves as an emulator for numerous games from various consoles throughout the decades. It provides a nostalgic gaming experience, allowing users to relive the golden age of gaming. With Retromania, you can dive into the world of retro gaming and enjoy a vast collection of classic games from various consoles, all in one immersive platform. The repository is built using [ReactJS](https://react.dev/blog/2023/03/16/introducing-react-dev) with the [NextJS](https://nextjs.org) framework, offering a seamless and interactive user interface.
 
 ## Disclaimer
 Please note that "Retromania" is a trademarked name and this repository is provided for personal and educational purposes only. It is not intended for commercial use or public deployment. We kindly ask users not to publish or distribute this repository under the name "Retromania" without proper authorization.
@@ -17,8 +17,8 @@ Please note that "Retromania" is a trademarked name and this repository is provi
    - `NEXT_PUBLIC_CORS_URL`: Provide the URL of the server hosting the CORS proxy to avoid CORS blocking from the igdb API. You can use a CORS proxy like [https://github.com/Rob--W/cors-anywhere](https://github.com/Rob--W/cors-anywhere). Remember to include a trailing slash (`/`) at the end of the URL.
 
 > Note: If you are using a different static file server, make sure to adjust the regular expression syntax accordingly to match your setup.
-4. Run yarn install or npm install to install the project dependencies.
-5. Run yarn dev or npm run dev to start the development server.
+4. Run `yarn install` or `npm install` to install the project dependencies.
+5. Run `yarn dev` or `npm run dev` to start the development server.
 
 ## Contributions
 Users are welcome to contribute to the repository by submitting pull requests or using it for testing and personal hosting purposes. However, we advise against publicly deploying or using this repository commercially without obtaining proper authorization for the "Retromania" name and any copyrighted content included within.
