@@ -1,6 +1,18 @@
 {
-    "nes": "Nintendo Entertainment System",
-    "snes": "Super Nintendo Entertainment System",
-    "n64": "Nintendo 64",
-    "gba": "Game Boy Advance"
+    "nes": {
+        "name": "Nintendo Entertainment System",
+        "fileType": "nes"
+    },
+    "snes": {
+        "name": "Super Nintendo Entertainment System",
+        "fileType": "sfc"
+    },
+    "gba": {
+        "name": "Game Boy Advance",
+        "fileType": "gba"
+    },
+    "n64": {
+        "name": "Nintendo 64",
+        "fileType": "n64"
+    }
 }

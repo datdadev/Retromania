@@ -1,7 +1,7 @@
 'use client'
 import InnerHTML from 'dangerously-set-html-content'
 
-const Player = ({ type = 'nes', gameUrl = 'https://zlink.ddns.net/roms/nes/Super-Mario-Bros..nes' }) => {
+const Player = ({ type = 'nes', gameUrl = `${process.env.NEXT_PUBLIC_ROMS_URL}nes/Super-Mario-Bros..nes` }) => {
     const html = `
         <div class="aspect-[4/3]">
             <div id="game"></div>

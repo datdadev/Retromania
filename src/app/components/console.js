@@ -1,7 +1,4 @@
 "use client"
-const type = "n64";
-const fileType = "n64";
-
 import { useEffect, useState } from "react";
 import { decode } from 'html-entities';
 import Image from "next/image";
@@ -9,8 +6,8 @@ import loadingGif from '../../../public/assets/gifs/loading.gif'
 import {
     VT323,
 } from 'next/font/google';
-import NavBar from "../components/navBar";
-import GameCard from "../components/gameCard";
+import NavBar from "./navBar";
+import GameCard from "./gameCard";
 
 import platforms from "../../../public/assets/jsons/platforms.json"
 
@@ -21,7 +18,10 @@ const vt323 = VT323({
     variable: '--font-vt323',
 });
 
-const N64 = () => {
+const CONSOLE = ({ _type, _fileType }) => {
+    const type = _type;
+    const fileType = _fileType;
+
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false);
     const handleChange = (event) => setValue(event.target.value)
@@ -32,7 +32,7 @@ const N64 = () => {
     useEffect(() => {
         async function getGames() {
             setLoading(true);
-            let responseFromHost = await fetch(`https://zlink.ddns.net/roms/${type}`)
+            let responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`)
             const backendHtmlString = await responseFromHost.text()
             if (!backendHtmlString.includes('<a')) {
                 return []; // or any other default value you want to use
@@ -54,7 +54,7 @@ const N64 = () => {
             let gamesDetail = [];
             for (let i = 0; i < chunks.length; i++) {
                 const responseFromDatabase = await fetch(
-                    `https://zlink.ddns.net/cors/api.igdb.com/v4/games`, {
+                    `${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -62,7 +62,7 @@ const N64 = () => {
                         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
                     },
                     body: `fields name, cover.url;
-                  where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type] + '" | name = "')}" & platforms.name = "${platforms[type]}";`
+                  where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type].name + '" | name = "')}" & platforms.name = "${platforms[type].name}";`
                 }
                 );
 
@@ -97,7 +97,7 @@ const N64 = () => {
             </div>
             {loading ? (
                 <div className="flex justify-center">
-                    <Image src={loadingGif} width={64} height={64}/>
+                    <Image src={loadingGif} width={64} height={64} />
                 </div>
             ) : (
                 <div className="mx-5 w-2/3 mx-auto grid grid-cols-2 md:grid-cols-3 Lg:grid-cols-5 xl:grid-cols-8 gap-6">
@@ -118,4 +118,4 @@ const N64 = () => {
 
 }
 
-export default N64;
+export default CONSOLE;

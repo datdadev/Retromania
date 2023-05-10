@@ -68,10 +68,10 @@ export default function Home() {
       return array.length;
     }
     const urls = [
-      "https://zlink.ddns.net/roms/nes",
-      "https://zlink.ddns.net/roms/snes",
-      "https://zlink.ddns.net/roms/n64",
-      "https://zlink.ddns.net/roms/gba"
+      `${process.env.NEXT_PUBLIC_ROMS_URL}nes`,
+      `${process.env.NEXT_PUBLIC_ROMS_URL}snes`,
+      `${process.env.NEXT_PUBLIC_ROMS_URL}gba`,
+      `${process.env.NEXT_PUBLIC_ROMS_URL}n64`,
     ];
     Promise.all(urls.map(url => getGames(url)))
       .then(counts => {
