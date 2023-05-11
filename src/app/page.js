@@ -131,13 +131,13 @@ export default function Home() {
               <div className='h-full flex'>
                 <div className='basis-1/2 flex flex-col'>
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Available</h1>
-                  <div className='mt-3 h-full flex flex-col gap-8 justify-center items-center'>
-                    <div className='flex gap-8 items-center'>
+                  <div className='mt-3 h-full flex flex-col gap-4 justify-center items-center'>
+                    <div className='flex gap-4 Lg:gap-8 items-center'>
                       <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={numberOfGames["nes"]} />
                       <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={numberOfGames["snes"]} />
                       <ConsoleCard image={gba} gif={gbaGif} name={"GBA"} numberOfGames={numberOfGames["gba"]} />
                     </div>
-                    <div className='flex gap-8 items-center'>
+                    <div className='flex gap-4 Lg:gap-8 items-center'>
                       <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={numberOfGames["n64"]} />
                       <ConsoleCard image={nds} gif={ndsGif} name={"NDS"} numberOfGames={numberOfGames["nds"]} />
                     </div>
