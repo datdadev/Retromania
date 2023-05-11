@@ -14,5 +14,9 @@
     "n64": {
         "name": "Nintendo 64",
         "fileType": "n64"
+    },
+    "nds": {
+        "name": "Nintendo DS",
+        "fileType": "nds"
     }
 }

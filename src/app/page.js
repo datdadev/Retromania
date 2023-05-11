@@ -11,6 +11,7 @@ import { IoCaretDownSharp } from "react-icons/io5"
 import { SiFirefoxbrowser, SiGooglechrome, SiOpera, SiBrave } from "react-icons/si"
 import { FaSafari } from "react-icons/fa"
 
+import platforms from '../../public/assets/jsons/platforms.json'
 import Player from './components/player';
 import NavBar from './components/navBar';
 import pipe from "../../public/assets/images/pipe.png";
@@ -18,12 +19,14 @@ import oneUp from "../../public/assets/images/1up.png";
 import triforce from "../../public/assets/images/triforce.png";
 import nes from "../../public/assets/images/nes.png";
 import snes from "../../public/assets/images/snes.png";
-import n64 from "../../public/assets/images/n64.png";
 import gba from "../../public/assets/images/gba.png";
+import n64 from "../../public/assets/images/n64.png";
+import nds from "../../public/assets/images/nds.png";
 import nesGif from "../../public/assets/gifs/nes.gif";
 import snesGif from "../../public/assets/gifs/snes.gif";
-import n64Gif from "../../public/assets/gifs/n64.gif";
 import gbaGif from "../../public/assets/gifs/gba.gif";
+import n64Gif from "../../public/assets/gifs/n64.gif";
+import ndsGif from "../../public/assets/gifs/nds.gif";
 import metroidBackground from "../../public/assets/images/metroidBackground.png";
 import samusShip from "../../public/assets/gifs/samusShip.gif";
 
@@ -51,12 +54,11 @@ export default function Home() {
   const scroll2Page1 = () => page1Ref.current.scrollIntoView({ behavior: 'smooth' });
   const scroll2Page2 = () => page2Ref.current.scrollIntoView({ behavior: 'smooth' });
 
-  const [numberOfGames, setNumberOfGames] = useState({
-    "nes": "...",
-    "snes": "...",
-    "n64": "...",
-    "gba": "..."
-  });
+  const initialNumberOfGames = Object.keys(platforms).reduce((gameList, key) => {
+    gameList[key] = "...";
+    return gameList;
+  }, {});
+  const [numberOfGames, setNumberOfGames] = useState(initialNumberOfGames);
   useEffect(() => {
     async function getGames(url) {
       let response = await fetch(url)
@@ -67,20 +69,14 @@ export default function Home() {
       const array = [...decode(backendHtmlString).match(/<a/g)];
       return array.length;
     }
-    const urls = [
-      `${process.env.NEXT_PUBLIC_ROMS_URL}nes`,
-      `${process.env.NEXT_PUBLIC_ROMS_URL}snes`,
-      `${process.env.NEXT_PUBLIC_ROMS_URL}gba`,
-      `${process.env.NEXT_PUBLIC_ROMS_URL}n64`,
-    ];
+
+    const urls = Object.keys(platforms).map(key => `${process.env.NEXT_PUBLIC_ROMS_URL}${key}`);
     Promise.all(urls.map(url => getGames(url)))
       .then(counts => {
-        const updatedGameList = {
-          "nes": counts[0],
-          "snes": counts[1],
-          "n64": counts[2],
-          "gba": counts[3]
-        };
+        const updatedGameList = Object.keys(platforms).reduce((gameList, key, index) => {
+          gameList[key] = counts[index];
+          return gameList;
+        }, {});
         setNumberOfGames(updatedGameList);
       });
   }, []);
@@ -135,14 +131,15 @@ export default function Home() {
               <div className='h-full flex'>
                 <div className='basis-1/2 flex flex-col'>
                   <h1 className={`${ps2p.variable} font-ps2p text-2xl Lg:text-3xl text-center`}>Available</h1>
-                  <div className='h-full flex flex-col gap-8 justify-center items-center'>
+                  <div className='mt-3 h-full flex flex-col gap-8 justify-center items-center'>
                     <div className='flex gap-8 items-center'>
                       <ConsoleCard image={nes} gif={nesGif} name={"NES"} numberOfGames={numberOfGames["nes"]} />
                       <ConsoleCard image={snes} gif={snesGif} name={"SNES"} numberOfGames={numberOfGames["snes"]} />
+                      <ConsoleCard image={gba} gif={gbaGif} name={"GBA"} numberOfGames={numberOfGames["gba"]} />
                     </div>
                     <div className='flex gap-8 items-center'>
                       <ConsoleCard image={n64} gif={n64Gif} name={"N64"} numberOfGames={numberOfGames["n64"]} />
-                      <ConsoleCard image={gba} gif={gbaGif} name={"GBA"} numberOfGames={numberOfGames["gba"]} />
+                      <ConsoleCard image={nds} gif={ndsGif} name={"NDS"} numberOfGames={numberOfGames["nds"]} />
                     </div>
                   </div>
                 </div>
@@ -164,7 +161,7 @@ export default function Home() {
                 </div>
               </div>
               <div className='flex flex-col mx-auto'>
-                <h1 className={`${ps2p.variable} font-ps2p mb-5 text-2xl Lg:text-3xl text-center`}>Compability</h1>
+                <h1 className={`${ps2p.variable} font-ps2p mt-2 mb-3 text-2xl Lg:text-3xl text-center`}>Compability</h1>
                 <div className=' mx-auto flex gap-5'>
                   <FaSafari size={28} />
                   <SiFirefoxbrowser size={28} />

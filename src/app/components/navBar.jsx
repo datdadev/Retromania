@@ -1,4 +1,6 @@
 "use client"
+import platforms from "../../../public/assets/jsons/platforms.json"
+
 import {
     Press_Start_2P as PS2P,
 } from 'next/font/google';
@@ -17,7 +19,7 @@ const NavBar = ({ currentPage = "" }) => {
         </a>
         <div className='flex gap-5 items-center'>
             {
-                ["", "nes", "snes", "gba", "n64"].map((route) => {
+                [""].concat(Object.keys(platforms)).map((route) => {
                     return <a href={`/${route}`} className={`${ps2p.variable} font-ps2p ${currentPage === route ? "text-white" : "text-white/50 hover:text-white duration-150"}`}>{route ? route.toUpperCase() : "HOME"}</a>
                 })
             }
