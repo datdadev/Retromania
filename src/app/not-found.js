@@ -19,5 +19,4 @@ export default function Custom404() {
         </div>
         <Image className='mb-5' src={korok} width={86}/>
     </div>
-
 }
