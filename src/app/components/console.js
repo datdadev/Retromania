@@ -107,7 +107,7 @@ const CONSOLE = ({ _type, _fileType }) => {
                                 <GameCard
                                     type={type}
                                     name={game.name.replaceAll(" ", "-")}
-                                    cover={game?.cover?.url}
+                                    cover={game?.cover?.url || null}
                                 />
                             );
                     })}
