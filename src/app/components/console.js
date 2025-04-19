@@ -32,50 +32,57 @@ const CONSOLE = ({ _type, _fileType }) => {
     useEffect(() => {
         async function getGames() {
             setLoading(true);
-            let responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`)
-            const backendHtmlString = await responseFromHost.text()
-            if (!backendHtmlString.includes('<a')) {
-                return []; // or any other default value you want to use
-            }
+    
+            // === GET GAMES ===
+            const responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`);
+            const backendHtmlString = await responseFromHost.text();
+            if (!backendHtmlString.includes('<a')) return [];
+    
             const decodedHtmlString = decode(backendHtmlString);
             const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
-            let gameNames = [];
-            if (typeof decodedHtmlString === 'string') {
-                gameNames = [...decodedHtmlString.match(regex)];
-            }
-
-            // Split gameNames array into smaller chunks
+            let gameNames = decodedHtmlString.match(regex) || [];
+    
+            // === GET COVERS ===
             const chunkSize = 10;
             const chunks = [];
             for (let i = 0; i < gameNames.length; i += chunkSize) {
                 chunks.push(gameNames.slice(i, i + chunkSize));
             }
-
+    
             let gamesDetail = [];
-            for (let i = 0; i < chunks.length; i++) {
-                const responseFromDatabase = await fetch(
-                    `${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
+            for (const chunk of chunks) {
+                const query = `fields name, cover.url;
+                    where name = "${chunk.map(n => n.replaceAll(/-/g, " ")).join(`" & platforms.name = "${platforms[type].name}" | name = "`)}" & platforms.name = "${platforms[type].name}";`;
+    
+                const response = await fetch(`${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
                         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
                     },
-                    body: `fields name, cover.url;
-                  where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type].name + '" | name = "')}" & platforms.name = "${platforms[type].name}";`
-                }
-                );
-
-                const responseJson = await responseFromDatabase.json();
-                gamesDetail = [...gamesDetail, ...responseJson];
+                    body: query,
+                });
+    
+                const responseJson = await response.json();
+                gamesDetail.push(...responseJson);
             }
+    
+            // === MERGE RAW GAME LIST WITH IGDB DETAIL ===
+            const merged = gameNames.map(name => {
+                const match = gamesDetail.find(g => g.name.toLowerCase() === name.toLowerCase());
+                return {
+                    name,
+                    cover: match?.cover || null,
+                };
+            });
+    
             setLoading(false);
-            return gamesDetail;
+            return merged;
         }
-
-        getGames().then((array) => setGameList(array));
+    
+        getGames().then((games) => setGameList(games));
     }, []);
-
 
     useEffect(() => {
         setMatchedGames(
