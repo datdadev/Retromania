@@ -30,67 +30,52 @@ const CONSOLE = ({ _type, _fileType }) => {
     const [matchedGames, setMatchedGames] = useState([]);
 
     useEffect(() => {
-        let timeoutId;
         async function getGames() {
             setLoading(true);
-            // Auto timeout after 10 seconds
-            timeoutId = setTimeout(() => {
-                setLoading(false);
-            }, 10000); // 10 seconds
-    
-            try {
-                let responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`)
-                const backendHtmlString = await responseFromHost.text()
-                if (!backendHtmlString.includes('<a')) {
-                    setLoading(false);
-                    return [];
-                }
-    
-                const decodedHtmlString = decode(backendHtmlString);
-                const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
-                let gameNames = [];
-                if (typeof decodedHtmlString === 'string') {
-                    gameNames = [...decodedHtmlString.match(regex)];
-                }
-    
-                const chunkSize = 10;
-                const chunks = [];
-                for (let i = 0; i < gameNames.length; i += chunkSize) {
-                    chunks.push(gameNames.slice(i, i + chunkSize));
-                }
-    
-                let gamesDetail = [];
-                for (let i = 0; i < chunks.length; i++) {
-                    const responseFromDatabase = await fetch(
-                        `${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
-                            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
-                        },
-                        body: `fields name, cover.url;
-                      where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type].name + '" | name = "')}" & platforms.name = "${platforms[type].name}";`
-                    });
-    
-                    const responseJson = await responseFromDatabase.json();
-                    gamesDetail = [...gamesDetail, ...responseJson];
-                }
-    
-                clearTimeout(timeoutId); // Clear timeout if finished on time
-                setLoading(false);
-                return gamesDetail;
-    
-            } catch (error) {
-                console.error("Error fetching games:", error);
-                clearTimeout(timeoutId);
-                setLoading(false);
-                return [];
+            let responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`)
+            const backendHtmlString = await responseFromHost.text()
+            if (!backendHtmlString.includes('<a')) {
+                return []; // or any other default value you want to use
             }
+            const decodedHtmlString = decode(backendHtmlString);
+            const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
+            let gameNames = [];
+            if (typeof decodedHtmlString === 'string') {
+                gameNames = [...decodedHtmlString.match(regex)];
+            }
+
+            // Split gameNames array into smaller chunks
+            const chunkSize = 10;
+            const chunks = [];
+            for (let i = 0; i < gameNames.length; i += chunkSize) {
+                chunks.push(gameNames.slice(i, i + chunkSize));
+            }
+
+            let gamesDetail = [];
+            for (let i = 0; i < chunks.length; i++) {
+                const responseFromDatabase = await fetch(
+                    `${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
+                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+                    },
+                    body: `fields name, cover.url;
+                  where name = "${(chunks[i].map(str => str.replaceAll(/-/g, " "))).join('" & platforms.name = "' + platforms[type].name + '" | name = "')}" & platforms.name = "${platforms[type].name}";`
+                }
+                );
+
+                const responseJson = await responseFromDatabase.json();
+                gamesDetail = [...gamesDetail, ...responseJson];
+            }
+            setLoading(false);
+            return gamesDetail;
         }
-    
+
         getGames().then((array) => setGameList(array));
-    }, []);    
+    }, []);
+
 
     useEffect(() => {
         setMatchedGames(
