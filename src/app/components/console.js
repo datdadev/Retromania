@@ -32,55 +32,65 @@ const CONSOLE = ({ _type, _fileType }) => {
     useEffect(() => {
         async function getGames() {
             setLoading(true);
-    
-            // === GET GAMES ===
-            const responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`);
-            const backendHtmlString = await responseFromHost.text();
-            if (!backendHtmlString.includes('<a')) return [];
-    
-            const decodedHtmlString = decode(backendHtmlString);
-            const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
-            let gameNames = decodedHtmlString.match(regex) || [];
-    
-            // === GET COVERS ===
-            const chunkSize = 10;
-            const chunks = [];
-            for (let i = 0; i < gameNames.length; i += chunkSize) {
-                chunks.push(gameNames.slice(i, i + chunkSize));
-            }
-    
-            let gamesDetail = [];
-            for (const chunk of chunks) {
-                const query = `fields name, cover.url;
-                    where name = "${chunk.map(n => n.replaceAll(/-/g, " ")).join(`" & platforms.name = "${platforms[type].name}" | name = "`)}" & platforms.name = "${platforms[type].name}";`;
-    
-                const response = await fetch(`${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
-                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
-                    },
-                    body: query,
+            try {
+                // === GET GAMES ===
+                const responseFromHost = await fetch(`${process.env.NEXT_PUBLIC_ROMS_URL}${type}`);
+                const backendHtmlString = await responseFromHost.text();
+                if (!backendHtmlString.includes('<a')) return [];
+
+                const decodedHtmlString = decode(backendHtmlString);
+                const regex = new RegExp(`(?<=>)[\\w.'!:-]+(?=.${fileType}<)`, 'g');
+                let gameNames = decodedHtmlString.match(regex) || [];
+
+                // === GET COVERS ===
+                const chunkSize = 10;
+                const chunks = [];
+                for (let i = 0; i < gameNames.length; i += chunkSize) {
+                    chunks.push(gameNames.slice(i, i + chunkSize));
+                }
+
+                let gamesDetail = [];
+                for (const chunk of chunks) {
+                    const query = `fields name, cover.url;
+                        where name = "${chunk.map(n => n.replaceAll(/-/g, " ")).join(`" & platforms.name = "${platforms[type].name}" | name = "`)}" & platforms.name = "${platforms[type].name}";`;
+
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_CORS_URL}api.igdb.com/v4/games`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
+                            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+                        },
+                        body: query,
+                    });
+
+                    if (!response.ok) {
+                        console.error("Failed to fetch IGDB games:", await response.text());
+                        continue; // skip this chunk
+                    }
+
+                    const responseJson = await response.json();
+                    gamesDetail.push(...responseJson);
+                }
+
+                // === MERGE RAW GAME LIST WITH IGDB DETAIL ===
+                const merged = gameNames.map(name => {
+                    const match = gamesDetail.find(g => g.name.toLowerCase() === name.toLowerCase());
+                    return {
+                        name,
+                        cover: match?.cover || null,
+                    };
                 });
-    
-                const responseJson = await response.json();
-                gamesDetail.push(...responseJson);
+
+                return merged;
+            } catch (error) {
+                console.error("Error in getGames:", error);
+                return []; // Fallback to empty list on error
+            } finally {
+                setLoading(false); // Always turn off loading state
             }
-    
-            // === MERGE RAW GAME LIST WITH IGDB DETAIL ===
-            const merged = gameNames.map(name => {
-                const match = gamesDetail.find(g => g.name.toLowerCase() === name.toLowerCase());
-                return {
-                    name,
-                    cover: match?.cover || null,
-                };
-            });
-    
-            setLoading(false);
-            return merged;
         }
-    
+
         getGames().then((games) => setGameList(games));
     }, []);
 
