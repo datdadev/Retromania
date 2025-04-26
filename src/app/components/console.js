@@ -60,6 +60,7 @@ const CONSOLE = ({ _type, _fileType }) => {
                             'Accept': 'application/json',
                             'Client-ID': process.env.NEXT_PUBLIC_CLIENT_ID,
                             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+                            'X-Requested-With': 'XMLHttpRequest',
                         },
                         body: query,
                     });
